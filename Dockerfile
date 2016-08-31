@@ -68,6 +68,9 @@ RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/src/*
 RUN mkdir -p /var/shed/public
 COPY /public/ /var/shed/public/
 
+# install adminer
+RUN bash /install-adminer.sh && rm /install-adminer.sh
+
 # install webgrind
 RUN bash /install-webgrind.sh && rm /install-webgrind.sh
 
