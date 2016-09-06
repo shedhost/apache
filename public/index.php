@@ -30,16 +30,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <h2>Settings</h2>
         <form method="post">
             <div>
-                <label for="APACHE_BASE_PATH">Sites Directory</label>
-                <input name="APACHE_BASE_PATH" type="text" value="<?= $config['APACHE_BASE_PATH'] ?>" />
+                <label for="home">Sites Directory</label>
+                <input name="home" type="text" value="home" />
             </div>
             <div>
-                <label for="APACHE_DEFAULT_DOCROOT">Default Docroot</label>
-                <input name="APACHE_DEFAULT_DOCROOT" type="text" value="<?= $config['APACHE_DEFAULT_DOCROOT'] ?>" />
+                <label for="docroot">Default Docroot</label>
+                <input name="docroot" type="text" value="<?= $config['docroot'] ?>" />
             </div>
             <div>
-                <label for="APACHE_PORT">Apache Port</label>
-                <input name="APACHE_PORT" type="text" value="<?= $config['APACHE_PORT'] ?>" />
+                <label for="port">Apache Port</label>
+                <input name="port" type="text" value="<?= $config['port'] ?>" />
             </div>
             <div>
                 <button type="submit">Save</button>
