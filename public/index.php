@@ -30,8 +30,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <h2>Settings</h2>
         <form method="post">
             <div>
-                <label for="home">Sites Directory</label>
-                <input name="home" type="text" value="home" />
+                <label for="sites">Sites Directory</label>
+                <input name="sites" type="text" value="sites" />
             </div>
             <div>
                 <label for="docroot">Default Docroot</label>
