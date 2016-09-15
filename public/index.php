@@ -1,50 +1,52 @@
 <?php
-$filename = '/var/shed/config/.env';
-$config = parse_ini_file($filename);
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $config = array_replace($config, $_POST);
-
-    $ini = '';
-    foreach ($config as $attr => $val) {
-        $ini .= "$attr=$val\n";
-    }
-
-    file_put_contents($filename, $ini);
-}
+$sites = array_map(
+    function($dir) {
+        return preg_replace('(^/var/www/(.*)/public$)', '$1.shed.host', $dir);
+    },
+    glob('/var/www/*/public', GLOB_ONLYDIR)
+);
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>my.shed.host</title>
+    <link rel="stylesheet" href="shed.css">
 </head>
 <body>
-    <h1>my.shed.host</h1>
+    <header class="primary">
+        <h1>my.shed.host</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Sites</h2>
+            <ul>
+                <?php
+                foreach ($sites as $site) {
+                    printf('<li><a href="//%s">%s</a></li>', $site, $site);
+                }
+                ?>
+            </ul>
+        </section>
+        <section>
+            <h2>Databases</h2>
+            <ul>
+                <li><a href="/adminer/adminer/?server=mysql&username=root">MySQL</a></li>
+                <li><a href="/adminer/adminer/?pgsql=postgres&username=postgres">PostgreSQL</a></li>
+            </ul>
+        </section>
 
-    <a href="/phpinfo.php">PHP Info</a>
-    <a href="/adminer/adminer/?server=mysql&username=root">MySQL</a>
-    <a href="/adminer/adminer/?pgsql=postgres&username=postgres">PostgreSQL</a>
-
-    <section>
-        <h2>Settings</h2>
-        <form method="post">
-            <div>
-                <label for="sites">Sites Directory</label>
-                <input name="sites" type="text" value="sites" />
-            </div>
-            <div>
-                <label for="docroot">Default Docroot</label>
-                <input name="docroot" type="text" value="<?= $config['docroot'] ?>" />
-            </div>
-            <div>
-                <label for="port">Apache Port</label>
-                <input name="port" type="text" value="<?= $config['port'] ?>" />
-            </div>
-            <div>
-                <button type="submit">Save</button>
-            </div>
-        </form>
-    </section>
+        <section>
+            <h2>System</h2>
+            <p>
+                Shed is currently running on
+                <?= $_SERVER['SERVER_SOFTWARE'] ?> and
+                PHP <?= phpversion() ?>.
+            </p>
+            <ul>
+                <li><a href="/phpinfo.php">PHP Info</a></li>
+            </ul>
+        </section>
+    </main>
 </body>
 </html>
