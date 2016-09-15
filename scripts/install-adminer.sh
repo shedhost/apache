@@ -8,5 +8,5 @@ php composer.phar create-project vrana/adminer
 mv adminer /var/shed/public/
 
 # install adminer skin
-mv /var/shed/public/adminer.css /var/shed/public/adminer/static/default.css
+mv /var/shed/public/adminer.css /var/shed/public/adminer/adminer/static/default.css
 rm composer.phar
