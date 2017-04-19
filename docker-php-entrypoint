@@ -1,0 +1,19 @@
+#!/bin/sh
+set -e
+
+if [ -n "$APACHE_UID" ]; then
+    echo "setting apache uid to $APACHE_UID..."
+    usermod -u $APACHE_UID www-data
+fi
+
+if [ -n "$APACHE_GID" ]; then
+    echo "setting apache gid to $APACHE_GID..."
+    groupmod -g $APACHE_GID www-data
+fi
+
+# first arg is `-f` or `--some-option`
+if [ "${1#-}" != "$1" ]; then
+	set -- apache2-foreground "$@"
+fi
+
+exec "$@"

@@ -79,3 +79,9 @@ COPY /000-default.conf /etc/apache2/sites-enabled/000-default.conf
 
 # copy in PHP config
 COPY /php.ini /usr/local/etc/php/php.ini
+
+
+# Use custom entrypoint to allow for setting apache's UID and GID
+COPY docker-php-entrypoint /usr/local/bin/
+ENTRYPOINT ["docker-php-entrypoint"]
+CMD ["apache2-foreground"]
