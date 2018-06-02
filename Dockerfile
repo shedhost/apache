@@ -1,4 +1,4 @@
-FROM php:7.0-apache
+FROM php:apache
 RUN a2enmod rewrite vhost_alias
 RUN apt-get update
 RUN apt-get install -y \
@@ -7,8 +7,7 @@ RUN apt-get install -y \
     git-core \
     autoconf \
     libjpeg62-turbo-dev \
-    libmcrypt-dev \
-    libpng12-dev \
+    libpng-dev \
     libcurl4-openssl-dev \
     libpq-dev \
     libmemcached-dev \
@@ -27,7 +26,6 @@ RUN apt-get install -y \
     sendmail
 RUN docker-php-ext-install \
     iconv \
-    mcrypt \
     opcache \
     curl \
     gd \
